@@ -5,7 +5,9 @@ import 'package:murza_app/app/clients/domain/repositories/i_client_repository.da
 import 'package:murza_app/app/clients/infrastructure/repositories/client_repository.dart';
 import 'package:murza_app/app/products/domain/repositories/i_product_repository.dart';
 import 'package:murza_app/app/products/infrastructure/repositories/product_repository.dart';
+import 'package:murza_app/app/profile/domain/repositories/i_profile_repository.dart';
 import 'package:murza_app/app/profile/domain/repositories/i_user_model_cache.dart';
+import 'package:murza_app/app/profile/infrastructure/repositories/profile_repository.dart';
 import 'package:murza_app/app/profile/infrastructure/repositories/user_model_cache.dart';
 import 'package:murza_app/auth/domain/repositories/i_auth_api_service.dart';
 import 'package:murza_app/auth/domain/repositories/i_secure_storage.dart';
@@ -35,6 +37,9 @@ void initGetIt() {
     () => ProductRepository(getIt()),
   );
   getIt.registerLazySingleton<IClientRepository>(
-        () => ClientRepository(getIt()),
+    () => ClientRepository(getIt()),
+  );
+  getIt.registerLazySingleton<IProfileRepository>(
+    () => ProfileRepository(getIt()),
   );
 }

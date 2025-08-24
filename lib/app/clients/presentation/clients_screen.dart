@@ -43,7 +43,7 @@ class ClientsScreen extends ConsumerWidget {
             return ListView.builder(
               itemCount: apiResult.data.length,
               itemBuilder: (context, index) {
-                return InkWell(
+                return GestureDetector(
                   onTap: (){
                     if (onClientSelected == null) {
                       return;

@@ -33,6 +33,11 @@ class ProductScreen extends ConsumerWidget {
       ),
       body: productListAsyncValue.when(
         data: (products) {
+          if (products.isEmpty) {
+            return Center(
+              child: Text('Нет доступных продуктов в этом бренде'),
+            );
+          }
           return Stack(
             children: [
               GridView.builder(

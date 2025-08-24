@@ -32,6 +32,16 @@ class BasketItemState extends Equatable {
     );
   }
 
+  /// to json
+  Map<String, dynamic> toJson() {
+    final unitPrice = product.price;
+    return {
+      'product_id': product.id,
+      'quantity': count,
+      'unit_price': unitPrice,
+    };
+  }
+
   @override
   List<Object?> get props => [product, count, amount];
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:murza_app/app/profile/presentation/profile_detail_screen.dart';
 import 'package:murza_app/auth/application/auth/auth_provider.dart';
+import 'package:murza_app/core/extensions/router_extension.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -30,7 +32,9 @@ class ProfileScreen extends ConsumerWidget {
                   icon: Icon(Icons.account_box_outlined),
                   title: "Информация о профиле",
                   subTitle: "Изменить информацию о профиле",
-                  press: () {},
+                  press: () {
+                     context.push(ProfileDetailScreen());
+                  },
                 ),
                 ProfileMenuCard(
                   icon: Icon(Icons.password),

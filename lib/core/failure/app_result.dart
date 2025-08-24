@@ -44,3 +44,4 @@ class ApiResultFailureTokenExpired extends ApiResult {}
 class ApiResultFailureUnExpected extends ApiResult {}
 
 class ApiResultFailureConfirmCode extends ApiResult {}
+

@@ -35,6 +35,9 @@ class BrandsScreen extends ConsumerWidget {
       body: brandsAsyncValue.when(
         data: (apiResult) {
           if (apiResult is ApiResultWithData) {
+            if( apiResult.data.isEmpty){
+              return Center(child: Text('Пустой список'));
+            }
             return ListView.builder(
               itemCount: apiResult.data.length,
               itemBuilder: (context, index) {

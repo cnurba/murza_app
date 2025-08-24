@@ -8,12 +8,19 @@ class ClientCard extends StatelessWidget {
   final bool showButtons;
   final Function()? onTap;
 
-  const ClientCard({super.key, required this.client, this.showButtons = false, this.onTap});
+  const ClientCard({
+    super.key,
+    required this.client,
+    this.showButtons = false,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap,
+      onTap: () {
+        onTap;
+      },
       child: Card(
         elevation: 4,
         margin: const EdgeInsets.all(12),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:murza_app/app/clients/domain/models/client_model.dart';
+import 'package:murza_app/app/clients/presentation/client_selectable_screen.dart';
 import 'package:murza_app/app/clients/presentation/clients_screen.dart';
 import 'package:murza_app/app/orders/application/basket_products/basket_provider.dart';
 import 'package:murza_app/core/extensions/router_extension.dart';
@@ -35,7 +37,8 @@ class _ClientSelectedWidgetState extends State<ClientSelectedWidget> {
             return IconButton(
               icon: const Icon(Icons.list),
               onPressed: () {
-                _selectClient(context, ref);
+                showClientSelectionSheet(context, ref);
+                //selectClient(context, ref);
               },
             );
           },
@@ -44,20 +47,26 @@ class _ClientSelectedWidgetState extends State<ClientSelectedWidget> {
     );
   }
 
-  void _selectClient(BuildContext context, WidgetRef ref) {
-    context.push(
-      ClientsScreen(
-        onClientSelected: (selectedClient) {
-          setState(() {
-            // Update the client controller with the selected client's name
-            _clientController.text = selectedClient.name;
-          });
-          // Update the client controller with the selected client's name
-          _clientController.text = selectedClient.name;
-          // Optionally, you can also update the state or provider with the selected client
-          ref.read(basketProvider.notifier).setClient(selectedClient);
-        },
+  showClientSelectionSheet(BuildContext context, WidgetRef ref) async {
+    final result = await showModalBottomSheet<ClientModel>(
+      context: context,
+      isScrollControlled: true,
+      builder: (_) => SizedBox(
+        height: MediaQuery.of(context).size.height * 0.85,
+        child: ClientSelectableScreen(),
       ),
     );
+
+    if (result != null) {
+      setState(() {
+        _clientController.text = result.name;
+      });
+      // Assuming you have access to the WidgetRef here, you might need to pass it down or use another method to get it.
+      ref.read(basketProvider.notifier).setClient(result);
+    }
   }
+
+  /// create a method to show a bottom sheet with the ClientsScreen
+  /// on client selected, set the client in the basket provider and set the text in the text field
+  /// close the bottom sheet
 }

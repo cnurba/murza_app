@@ -12,8 +12,6 @@ class BasketController
 
   /// Login function with _api.
   Future<void> addProduct(Product product, int count) async {
-
-
     /// Check if the product already exists in the state
     /// If it exists, update the count and amount
     /// If it does not exist, add it to the state

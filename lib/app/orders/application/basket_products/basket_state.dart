@@ -18,6 +18,17 @@ class BasketState {
       errorMessage: null,
     );
   }
+
+  /// to json
+  Map<String, dynamic> toJson() {
+    return {
+      'client_id': client.id,
+      'comment':"",
+      'delivery_date':"",
+      'items': products.map((e) => e.toJson()).toList(),
+    };
+  }
+
   BasketState copyWith({
     List<BasketItemState>? products,
     ClientModel? client,

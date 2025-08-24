@@ -35,6 +35,26 @@ class UserModel extends Equatable {
     required this.updatedAt,
   });
 
+  factory UserModel.empty() {
+    return UserModel(
+      id: 0,
+      username: "",
+      isActive: false,
+      name: "",
+      surname: '',
+      lastname: "",
+      phone: '',
+      whatsapp: "",
+      email: '',
+      address: "",
+      city: "",
+      state: "",
+      country: '',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+  }
+
   /// Factory constructor to create a UserModel from a JSON map.
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(

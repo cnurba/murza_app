@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:murza_app/app/orders/application/basket_products/basket_provider.dart';
+import 'package:murza_app/app/orders/application/new_order/new_order_post_future_provider.dart';
 import 'package:murza_app/app/orders/presentation/order/checkout_order_item.dart';
 import 'package:murza_app/app/orders/presentation/order/widgets/checkout_summary_card.dart';
 import 'package:murza_app/app/orders/presentation/order/widgets/checkout_title.dart';
 import 'package:murza_app/app/orders/presentation/order/widgets/client_selected_widget.dart';
 import 'package:murza_app/core/extensions/router_extension.dart';
+import 'package:murza_app/core/failure/app_result.dart';
 
 class CheckoutOrderScreen extends ConsumerWidget {
   const CheckoutOrderScreen({super.key});
@@ -13,6 +15,7 @@ class CheckoutOrderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final basketData = ref.watch(basketProvider);
+
     /// amount of products in the basket
     final totalAmount = basketData.products.fold<double>(
       0,
@@ -39,8 +42,26 @@ class CheckoutOrderScreen extends ConsumerWidget {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
+        onPressed: () async {
           ///
+          ///
+          //ref.refresh(newOrderPostFutureProvider)
+          /// create new order action with newOrderPostFutureProvider.
+          //ref.read(newOrderPostFutureProvider.notifier).createNewOrder(basketData);
+          final result = await ref.refresh(
+            newOrderPostFutureProvider(basketData),
+          );
+
+          if (result is ApiResultWithData) {
+            // If the order was created successfully, clear the basket
+            ref.read(basketProvider.notifier).clearSelectedProducts();
+            context.pop(); // Close the checkout screen
+          } else {
+            // Show error message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Ошибка при создании заказа')),
+            );
+          }
         },
         label: Text('Оформить заказ на сумма $totalAmount с'),
         icon: const Icon(Icons.check),
@@ -75,5 +96,4 @@ class CheckoutOrderScreen extends ConsumerWidget {
       ),
     );
   }
-
 }

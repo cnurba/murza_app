@@ -27,6 +27,12 @@ class _Brand {
   String get brands => "$_baseUrl/brands/";
 }
 
+class _Orders {
+  String get orders => "$_baseUrl/orders/";
+  String get ordersPost => "$_baseUrl/orders/full";
+  String ordersDetailById(int id) => "$_baseUrl/orders/full/$id";
+}
+
 /// Defines endpoints for connection to server.
 class Endpoints {
   static get product => _Product();
@@ -36,6 +42,8 @@ class Endpoints {
   static get auth => _Auth();
 
   static get brand => _Brand();
+
+  static get orders => _Orders();
 
   static String get image => "$_baseUrl";
 }

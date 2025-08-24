@@ -22,14 +22,14 @@ class AuthController extends StateNotifier<AuthState> {
       final isSignedIn = await _api.isSignIn();
       log("Auth check result: $isSignedIn");
       if (isSignedIn) {
-        final userInfoResult = await _api.getUserInfo();
-        if (userInfoResult is ApiResultWithData) {
-          log("User info fetch success: ${userInfoResult.data}");
-          _userModelCache.setUserModel(userInfoResult.data);
+        // final userInfoResult = await _api.getUserInfo();
+        // if (userInfoResult is ApiResultWithData) {
+        //   log("User info fetch success: ${userInfoResult.data}");
+        //   _userModelCache.setUserModel(userInfoResult.data);
           state = AuthAuthenticated();
           return;
-        }
-        state = AuthAuthenticated();
+        //}
+        //state = AuthAuthenticated();
       } else {
         state = AuthUnAuthenticated();
       }
